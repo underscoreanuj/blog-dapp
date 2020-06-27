@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row m-t-2">
+    <button type="button" onclick="startTransaction()">Go Plus</button>
+</div>
+{% endblock content %}
+{% block javascript %}
+{{ block.super }}
+<script>
+    function startTransaction() {
+
+        console.log("you're a plus member now!!!", $(location).attr('href'));
+
+        $.ajax({
+            type: "POST",
+            url: "/authenticate/",
+            data: { csrfmiddlewaretoken: '{{ csrf_token }}', res: "transaction confirmed" },
+            dataType: "json",
+            success: (resp) => { window.location.replace(resp.redirect_url); },
+            error: (err) => { console.log("failed", err); }
+        });
+    }
+</script>
+{% endblock javascript %}

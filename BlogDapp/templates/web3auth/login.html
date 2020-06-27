@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row m-t-2">
+    <button type="button" onclick="startLogin()">Login</button>
+</div>
+{% endblock content %}
+{% block javascript %}
+{{ block.super }}
+<script>
+    async function startLogin() {
+
+        if (window.ethereum) {
+            window.web3 = new Web3(ethereum);
+            try {
+                // Request account access if needed
+                await ethereum.enable();
+                // Acccounts now exposed
+
+                var login_url = '{% url 'web3auth_login_api' %}';
+                web3Login(login_url, console.log, console.log, console.log, console.log, console.log, async function (resp) {
+                    window.location.replace(resp.redirect_url);
+                });
+
+            } catch (error) {
+                // User denied account access...
+            }
+        }
+        // Legacy dapp browsers...
+        else if (window.web3) {
+            window.web3 = new Web3(web3.currentProvider);
+            // Acccounts always exposed
+            var login_url = '{% url 'web3auth_login_api' %}';
+            web3Login(login_url, console.log, console.log, console.log, console.log, console.log, function (resp) {
+                window.location.replace(resp.redirect_url);
+            });
+        }
+        // Non-dapp browsers...
+        else {
+            alert('web3 missing');
+            console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        }
+    }
+</script>
+{% endblock javascript %}

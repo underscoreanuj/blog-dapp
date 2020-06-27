@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="display-1">Explore</h1>
+{% for blog_obj in blogs %}
+<div class='row'></div>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ blog_obj.blog_title }}</h5>
+        <p class="card-text">{{ blog_obj.blog_description }}</p>
+        <a href="{{ blog_obj.blog_id }}" class="stretched-link"></a>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="d-flex justify-content-between">
+            <div>
+                {% if blog_obj.blog_type == 'F' %}
+                FREE
+                {% else %}
+                PLUS
+                {% endif %}
+            </div>
+            <div>
+                {{ blog_obj.blog_time }}
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+{% endfor %}
+
+{% endblock content %}

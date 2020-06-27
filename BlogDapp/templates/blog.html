@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="display-1">{{ blog_obj.blog_title }}</h1>
+<hr />
+<p class="lead">Posted: {{ blog_obj.blog_time }}</p>
+<hr />
+<p class="display-4">{{ blog_obj.blog_description }}</p>
+<hr />
+<p>{{ blog_obj.blog_content }}</p>
+{% endblock content %}
