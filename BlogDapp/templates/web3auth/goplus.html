@@ -7,18 +7,42 @@
 {% block javascript %}
 {{ block.super }}
 <script>
-    function startTransaction() {
+    async function startTransaction() {
 
         console.log("you're a plus member now!!!", $(location).attr('href'));
 
-        $.ajax({
-            type: "POST",
-            url: "/authenticate/",
-            data: { csrfmiddlewaretoken: '{{ csrf_token }}', res: "transaction confirmed" },
-            dataType: "json",
-            success: (resp) => { window.location.replace(resp.redirect_url); },
-            error: (err) => { console.log("failed", err); }
-        });
+        const transactionParameters = {
+            gasPrice: '0x09840000', // customizable by user during MetaMask confirmation.
+            gas: '21000', // customizable by user during MetaMask confirmation.
+            to: '0xD1536842a731098572CF2d50B7d9210bCbba04F5', // Required except during contract publications.
+            from: ethereum.selectedAddress, // must match user's active address.
+            value: '0x1C6BF52634000', // Only required to send ether to the recipient from the initiating external account.
+            data: '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
+        };
+
+
+        await ethereum.sendAsync(
+            {
+                method: 'eth_sendTransaction',
+                params: [transactionParameters],
+                from: ethereum.selectedAddress,
+            },
+            async (error, response) => {
+                if (error) {
+                    console.error(error);
+                    alert("transaction failed");
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/authenticate/",
+                        data: { csrfmiddlewaretoken: '{{ csrf_token }}', res: "transaction confirmed" },
+                        dataType: "json",
+                        success: (resp) => { window.location.replace(resp.redirect_url); },
+                        error: (err) => { console.log("failed", err); }
+                    });
+                }
+            }
+        );
     }
 </script>
 {% endblock javascript %}
