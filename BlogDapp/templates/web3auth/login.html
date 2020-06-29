@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row m-t-2">
-    <button type="button" onclick="startLogin()">Login</button>
+<div class="container-fluid">
+    <div>
+        <p>We support web3 logins only (cuz oAuth is for noobs)</p>
+    </div>
+    <button type="button" class="btn btn-info" onclick="startLogin()">Login with Metamask</button>
 </div>
 {% endblock content %}
 {% block javascript %}

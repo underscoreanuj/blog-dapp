@@ -6,6 +6,7 @@ cffi==1.14.0
 coincurve==13.0.0
 cytoolz==0.10.1
 Django==3.0.7
+django-crispy-forms==1.9.1
 eth-hash==0.2.0
 eth-typing==2.2.1
 eth-utils==1.9.0

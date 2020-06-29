@@ -12,7 +12,8 @@ class BlogList(TemplateView):
 
         context = {
             'blogs': blogs,
-            'user': request.user
+            'user': request.user,
+            'perm': request.user.has_perm('Blog.view_blog'),
         }
 
         return render(request, 'index.html', context=context)
@@ -33,7 +34,8 @@ class BlogView(TemplateView):
 
         context = {
             'blog_obj': blog_obj,
-            'user': request.user
+            'user': request.user,
+            'perm': request.user.has_perm('Blog.view_blog'),
         }
 
         return render(request, 'blog.html', context=context)

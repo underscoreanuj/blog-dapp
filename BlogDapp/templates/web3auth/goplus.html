@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row m-t-2">
-    <button type="button" onclick="startTransaction()">Go Plus</button>
+<div class="container-fluid">
+    <div>
+        <p>Like the free blogs! Guess what, the Plus ones are even better. Just pay a small one time charge and become a
+            life-time member of this amazing dapp.</p>
+    </div>
+    <button type="button" class="btn btn-info" onclick="startTransaction()">Go Plus</button>
 </div>
 {% endblock content %}
 {% block javascript %}
@@ -9,7 +13,7 @@
 <script>
     async function startTransaction() {
 
-        console.log("you're a plus member now!!!", $(location).attr('href'));
+        // console.log("you're a plus member now!!!", $(location).attr('href'));
 
         const transactionParameters = {
             gasPrice: '0x09840000', // customizable by user during MetaMask confirmation.

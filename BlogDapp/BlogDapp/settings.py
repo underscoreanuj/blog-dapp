@@ -40,9 +40,10 @@ INSTALLED_APPS = [
 
     # installed apps
     'Blog',
+    'web3auth',
 
     # installed libraries
-    'web3auth',
+
 ]
 
 MIDDLEWARE = [
